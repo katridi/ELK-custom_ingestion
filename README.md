@@ -32,10 +32,14 @@ PUT /russian_example
   },
   "mappings":{
     "properties":{
-       "title": {
+       "text": {
           "type":"text",
           "analyzer":"custom_russian"
-      }
+      },
+      "new_text": {
+        "type":"text",
+        "analyzer":"custom_russian"
+    }
    }
 }
 }
