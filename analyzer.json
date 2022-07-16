@@ -1,0 +1,40 @@
+PUT /russian_example
+{
+  "settings": {
+    "analysis": {
+      "filter": {
+        "russian_stop": {
+          "type":       "stop",
+          "stopwords":  "_russian_" 
+        },
+        "russian_keywords": {
+          "type":       "keyword_marker",
+          "keywords":   ["пример"] 
+        }
+      },
+      "analyzer": {
+        "custom_russian": {
+          "type":"custom", 
+          "char_filter":["html_strip"],
+          "tokenizer":  "standard",
+          "filter": [ "lowercase"]
+        }
+      }
+    }
+  },
+  "mappings":{
+    "properties":{
+       "title": {
+          "type":"text",
+          "analyzer":"custom_russian"
+      }
+   }
+}
+}
+
+POST russian_example/_analyze 
+{
+  "analyzer": "custom_russian", 
+  "text":     "<br> XX век фокс ты ли это</br>?"
+}
+
