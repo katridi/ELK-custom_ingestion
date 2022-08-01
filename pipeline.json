@@ -48,17 +48,22 @@ PUT _ingest/pipeline/roman-pipeline
             ctx['new_text'] = normalized.trim();
           """
         }
-      }
-  ]
-}
+      },
+      {
+        "html_strip": {
+          "field": "new_text"
 
-POST _ingest/pipeline/roman-pipeline/_simulate
-{
-  "docs": [
-    {
-      "_source": {
-        "text": "<br> XIX век фокс </br>"
+        }
+      },
+      {
+        "lowercase": {
+          "field": "new_text"
+        }
+      },
+      {
+        "trim": {
+          "field": "new_text"
+        }
       }
-    }
   ]
 }
